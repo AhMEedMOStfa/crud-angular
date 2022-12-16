@@ -1,0 +1,23 @@
+/* You can add global styles to this file, and also import other style files */
+.overlay{
+    background-color: rgba(0, 0, 0, 0.45);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+}
+.form-style{
+    width: 50%;
+    height: 80%;
+    margin: 1rem auto;
+    background-color: white;
+    padding: 2.5rem;
+    border-radius: 4px;
+}
+.place{
+    position: absolute;
+    top: 6px;
+    right: 10px;
+}

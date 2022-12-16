@@ -1,0 +1,28 @@
+
+<button class="text-center btn btn-outline-primary m-2" (click)="onAddEmp()">Add Employee</button>
+<app-EmployeeForm  (sendEmployeeData)="postEmployee($event)"></app-EmployeeForm>
+<table class="table container text-center">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Date Of Birth</th>
+      <th>Age</th>
+      <th>Address</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let employee of employeesArray" >
+      <th >{{employee.id}}</th>
+      <th >{{employee.name}}</th>
+      <th >{{employee.birthOfDate}}</th>
+      <th >{{employee.age}}</th>
+      <th >{{employee.address}}</th>
+      <button  class="btn btn-success text-black m-2" (click)="btnUpdateRecord(employee.id)">Update</button>
+      <button  class="btn btn-danger text-black m-2" (click)="deleteRecord(employee.id)">Delete</button>
+    </tr>
+  </tbody>
+</table>
+  <app-Details [empData]="empObject" (sendEmpData)="updateEmp($event)"></app-Details>
+
