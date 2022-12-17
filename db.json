@@ -1,0 +1,18 @@
+{
+  "Employees": [
+    {
+      "name": "Karim",
+      "age": 24,
+      "birthOfDate": "2022-11-28",
+      "address": "Sohag",
+      "id": 1
+    },
+    {
+      "name": "Ali Gamal",
+      "age": 25,
+      "birthOfDate": "2022-12-07",
+      "address": "tanta",
+      "id": 2
+    }
+  ]
+}

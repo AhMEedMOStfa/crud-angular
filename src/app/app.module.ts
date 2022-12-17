@@ -5,19 +5,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/Header/Header.component';
 import { NotFoundComponent } from './components/NotFound/NotFound.component';
-import { TableComponent } from './components/EmployeeTable/Table.component';
-import { EmployeeFormComponent } from './components/EmployeeForm/EmployeeForm.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { DetailsComponent } from "./components/UpdateForm/Details.component";
+import { MainLayoutComponent } from './components/main-layout/main-layout.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         HeaderComponent,
-        TableComponent,
         NotFoundComponent,
-        EmployeeFormComponent,
-        DetailsComponent
+        MainLayoutComponent,
+        
     ],
     providers: [],
     bootstrap: [AppComponent],

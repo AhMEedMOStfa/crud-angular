@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { audit } from 'rxjs';
-import { AuthService } from 'src/service/Auth.service';
+import { AuthService } from 'src/app/service/Auth.service';
 
 @Component({
   selector: 'app-login',
@@ -13,14 +12,15 @@ export class LoginComponent implements OnInit {
 
   constructor(private fb:FormBuilder , private auth:AuthService , private router:Router) { }
   loginForm:FormGroup = this.fb.group({
-    email:['',[Validators.required , Validators.email , Validators.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)]],
-    password:['' , [Validators.required]],
+    email:['',[Validators.required , Validators.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)]],
+    password:['' , [Validators.required,Validators.minLength(4)]],
   })
   
   submitForm(){
+    this.loginForm.markAllAsTouched();
     if(this.loginForm.valid)
     {
-      this.router.navigate(['/Home']);
+      this.router.navigate(['employee/Home']);
       this.auth.login();
     }
   }

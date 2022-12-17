@@ -1,0 +1,48 @@
+<div class="d-flex justify-content-center vh-100 align-items-center">
+  <div class="centering-position">
+    <h2 class="text-center">Login Form</h2>
+          <form [formGroup]="loginForm"(ngSubmit)="submitForm()">
+              <div class="form-group mb-3">
+                <label for="email">Email Address</label>
+                <input
+                class="form-control py-3 Input"
+                id="email"
+                formControlName="email"
+                type="email"
+                placeholder="Email Address"
+              />
+              <ng-container *ngIf="!loginForm.controls['email'].valid && loginForm.controls['email'].touched">
+                <p *ngIf="loginForm.controls['email'].errors?.['required']" class="text-danger">
+                  This field is Required
+                </p>
+                <p *ngIf="loginForm.controls['email'].errors?.['pattern']" class="text-danger">
+                  Plz Enter Correct Email Address
+                </p>
+              </ng-container>
+              </div>
+              <div class="form-group mb-3">
+                <label for="password">Password</label>
+                <input
+                class="form-control py-3 Input"
+                id="password"
+                formControlName="password"
+                type="password"
+                placeholder="Password"
+              />
+              <ng-container *ngIf="!loginForm.controls['password'].valid && loginForm.controls['password'].touched">
+                <p *ngIf="loginForm.controls['password'].errors?.['required']" class="text-danger">
+                  This field is Required
+                </p>
+                <p *ngIf="loginForm.controls['password'].errors?.['minLength']" class="text-danger">
+                  4 char at least
+                </p>
+              </ng-container>
+              </div>
+              <button  class="btn btn-primary m-2">Login</button>
+            </form>
+  
+  </div>
+
+</div>
+
+  

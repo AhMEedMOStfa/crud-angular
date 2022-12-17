@@ -1,7 +1,7 @@
 .centering-position{
     background-color: aqua;
     width: 40%;
-    height: 40%;
-    margin: auto;
+    max-height: 50%;
     padding: 2rem;
+    box-shadow: 5px 10px 8px #888888
 }

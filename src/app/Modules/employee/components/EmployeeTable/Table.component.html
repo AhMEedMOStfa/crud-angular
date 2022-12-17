@@ -1,6 +1,11 @@
 
 <button class="text-center btn btn-outline-primary m-2" (click)="onAddEmp()">Add Employee</button>
-<app-EmployeeForm  (sendEmployeeData)="postEmployee($event)"></app-EmployeeForm>
+<ng-container *ngIf="!employeeData ; else updateForm">
+  <app-EmployeeForm (sendEmployeeData)="postUpdateEmployee($event)"></app-EmployeeForm>  
+</ng-container>
+<ng-template #updateForm>
+  <app-EmployeeForm [empData]="employeeData"  (sendEmployeeData)="postUpdateEmployee($event)"></app-EmployeeForm>  
+</ng-template>
 <table class="table container text-center">
   <thead>
     <tr>
@@ -19,10 +24,9 @@
       <th >{{employee.birthOfDate}}</th>
       <th >{{employee.age}}</th>
       <th >{{employee.address}}</th>
-      <button  class="btn btn-success text-black m-2" (click)="btnUpdateRecord(employee.id)">Update</button>
-      <button  class="btn btn-danger text-black m-2" (click)="deleteRecord(employee.id)">Delete</button>
+      <button  class="btn btn-success text-black m-2" (click)="btnUpdateRecord(employee.id!)">Update</button>
+      <button  class="btn btn-danger text-black m-2" (click)="deleteRecord(employee.id!)">Delete</button>
     </tr>
   </tbody>
 </table>
-  <app-Details [empData]="empObject" (sendEmpData)="updateEmp($event)"></app-Details>
 
