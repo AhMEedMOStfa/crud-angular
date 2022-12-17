@@ -11,12 +11,13 @@ import { HideFormService } from 'src/app/service/hideForm.service';
   styleUrls: ['./Table.component.css']
 })
 export class TableComponent implements OnInit , OnDestroy   {
-  employeesArray!:Employee[];
-  employeeData:Employee | undefined;
-  destroySubsArray:Subscription[] = [];
+  employeesArray!:Employee[];//collect employee data
+  employeeData!:Employee | undefined ;//this may be undefined to convert employee from update case to post case
+  destroySubsArray:Subscription[] = [];//this array to collect all subscription to destroy
   constructor(private employeeService:EmployeeServiceService , public hideForm:HideFormService) { }
 
   ngOnInit() {
+    //fetch api to get all Employee data
     let Subs = this.employeeService.getAllEmployee().subscribe(
       {
         next:(employeesData)=> this.employeesArray = employeesData
@@ -24,7 +25,7 @@ export class TableComponent implements OnInit , OnDestroy   {
     )        
     this.destroySubsArray.push(Subs); 
   }
-  //add employee method
+  //this method to post new record or update record in employee form
   postUpdateEmployee(emp:Employee){
     if(!this.employeeData)
     {
@@ -32,9 +33,8 @@ export class TableComponent implements OnInit , OnDestroy   {
     }
     else
     {
-      this.employeesArray.forEach((val,i)=>{
-        (i ==emp.id!-1)?this.employeesArray[i] = emp:''
-      })
+     let index= this.employeesArray.findIndex((i)=>i.id === emp.id);
+     this.employeesArray[index] = emp;
     }
   }
   
@@ -51,23 +51,18 @@ export class TableComponent implements OnInit , OnDestroy   {
      }
      this.destroySubsArray.push(Subs);
   }
+
+  //select updated record
   btnUpdateRecord(EmpId:number){
-    let Subs=this.employeeService.getEmployeeById(EmpId).subscribe({
-      next:(empDetails)=>{
-        this.employeeData = empDetails;
-        if(this.employeeData){
-          this.hideForm.ishide.next(!this.hideForm.ishide.value);
-        }
-    }   
-    }
-    )
-  this.destroySubsArray.push(Subs);
+    this.employeeData=this.employeesArray.find((ele)=>ele.id===EmpId);
+    this.hideForm.ishide.next(!this.hideForm.ishide.value);    
   }
+  //to post new record
   onAddEmp(){     
       this.employeeData = undefined;
-      this.hideForm.ishide.next(!this.hideForm.ishide.value);
+      this.hideForm.ishide.next(!this.hideForm.ishide.value);      
   }
-  
+  //destroy subs
   ngOnDestroy(): void {
     this.destroySubsArray.forEach((ele)=>ele.unsubscribe());
   }

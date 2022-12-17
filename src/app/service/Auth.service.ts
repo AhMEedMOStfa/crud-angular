@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class AuthService {
+  //auth depend on local storage
 login(){
   localStorage.setItem('isLogin' , 'true');
 }

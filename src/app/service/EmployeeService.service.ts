@@ -9,7 +9,8 @@ import { environment } from 'src/environments/environment';
 export class EmployeeServiceService {
 
 constructor(private httpClient:HttpClient) { }
-
+//handle with json server
+//environment.APIEndpoint: its domain name
 getAllEmployee():Observable<Employee[]>{
   return this.httpClient.get<Employee[]>(`${environment.APIEndpoint}/Employees`);
 }
@@ -26,9 +27,9 @@ addEmployee(employee:Employee):Observable<Employee>
 deleteEmployee(employeeID:number):Observable<Employee>{
  return this.httpClient.delete<Employee>(`${environment.APIEndpoint}/Employees/${employeeID}`);
 }
-updateEmployeeData(employeeID:number|undefined,updatedEmployee:Employee):Observable<Employee>
+updateEmployeeData(empId:number|undefined,updatedEmployee:Employee):Observable<Employee>
 {
- return this.httpClient.put<Employee>(`${environment.APIEndpoint}/Employees/${employeeID}` , updatedEmployee)
+ return this.httpClient.put<Employee>(`${environment.APIEndpoint}/Employees/${empId}` , updatedEmployee)
 }
 
 }

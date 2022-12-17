@@ -10,9 +10,9 @@ import { HideFormService } from 'src/app/service/hideForm.service';
   styleUrls: ['./EmployeeForm.component.css']
 })
 export class EmployeeFormComponent implements OnInit {
-  @Output() sendEmployeeData:EventEmitter<Employee>;
-  @Input() empData?:Employee;
-  employeeForm!:FormGroup;
+  @Output() sendEmployeeData:EventEmitter<Employee>; //to sent employee interface after fill  incase of update or post
+  @Input() empData?:Employee;//to recieve emp interface incase of update record
+  employeeForm!:FormGroup;//use reactive form module
   employee!:Employee;
   
  
@@ -38,44 +38,47 @@ export class EmployeeFormComponent implements OnInit {
       })
     }
   }
+ 
   submitForm(){
-    let name = this.employeeForm.controls['name'].value;
-    let age = this.employeeForm.controls['age'].value;
-    let birthOfDate = this.employeeForm.controls['birthOfDate'].value;
-    let address = this.employeeForm.controls['address'].value;
-    this.employee={
-      name,
-      age,
-      birthOfDate,
-      address,
-    }  
-    this.employeeForm.markAllAsTouched();
-    if(!this.empData)
+    if(this.employeeForm.valid)
     {
-      this.employeeService.addEmployee(this.employee).subscribe({
-        next:(data:Employee)=>{
-          this.sendEmployeeData.emit(data);  
-          alert('Record Added Succefully');
-          this.onCloseForm();
-        }
-      })
+      //to close form after validation
+        this.onCloseForm();
+      //this emp inter will pass to post and update method
+        this.employee={
+          name:this.employeeForm.controls['name'].value,
+          age:this.employeeForm.controls['age'].value,
+          birthOfDate:this.employeeForm.controls['birthOfDate'].value,
+          address:this.employeeForm.controls['address'].value,
+        }  
+          //incase of add new employee
+      if(!this.empData)
+      {
+        this.employeeService.addEmployee(this.employee).subscribe({
+          next:(data:Employee)=>{
+            this.sendEmployeeData.emit(data);
+            this.employeeForm.reset();
+          }
+        })
+      }
+      //incase of update new employee
+      else
+      {
+        this.employeeService.updateEmployeeData(this.empData.id,this.employee).subscribe({
+          next:(data:Employee)=>{
+            this.sendEmployeeData.emit(data);           
+          }
+        })
+      }
     }
+    //to prevent submit before fill all data
     else
     {
-      this.employeeService.updateEmployeeData(this.empData?.id,this.employee).subscribe({
-        next:(data:Employee)=>{
-          this.sendEmployeeData.emit(data); 
-          alert('Record Updated Succefully');
-          this.onCloseForm();
-        }
-      })
-    }
+      this.employeeForm.markAllAsTouched()
+    }   
   }
+  //to close form
   onCloseForm(){
   this.hideForm.ishide.next(!this.hideForm.ishide.value);
   }
-
-
-  
-
 }

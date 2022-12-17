@@ -9,10 +9,6 @@ import { AuthService } from 'src/app/service/Auth.service';
 export class HeaderComponent implements OnInit {
 
   constructor(public auth:AuthService) { }
-
-  login(){
-    this.auth.login()
-  }
   logout(){
     this.auth.logout()
   }
